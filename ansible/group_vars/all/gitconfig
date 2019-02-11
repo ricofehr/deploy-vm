@@ -1,8 +1,8 @@
 ---
 
 gitconfigs:
-  - user.email ricofehr@nextdeploy.io
-  - user.name ricofehr
+  - user.email {{ ansible_user }}@example.com
+  - user.name {{ ansible_user }}
   - pull.rebase true
   - core.ignorecase false
   - help.autocorrect 1
