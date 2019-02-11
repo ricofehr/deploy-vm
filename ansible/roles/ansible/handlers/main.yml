@@ -1,0 +1,7 @@
+---
+
+- name: disable hostkey for ansible
+  shell: >
+    [[ ! -f ansible/ansible.cfg ]] || sed -i "s;#host_key_checking = False;host_key_checking = False;" /etc/ansible/ansible.cfg;
+  args:
+    executable: /bin/bash

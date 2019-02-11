@@ -1,0 +1,11 @@
+---
+
+- name: Install pip
+  apt: name=python-pip state=present update_cache=true force=yes
+  become: yes
+
+- name: install ansible
+  pip:
+    name: ansible
+  notify: disable hostkey for ansible
+  become: yes

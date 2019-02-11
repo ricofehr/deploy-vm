@@ -1,2 +1,10 @@
 # deploy-vm
-A vm with deploy tools like ansible, terraform, azure-cli, aws-cli
+
+Vm with useful packages and softwares for dploy applications: azcli, awscli, ansible, terraform
+
+## Run
+
+```
+$ git submodule update --init --recursive
+$ vagrant up
+```

@@ -1,0 +1,11 @@
+---
+
+devtools_packages:
+  - tcpdump
+  - ncftp
+  - htop
+  - iperf
+  - nmap
+  - golang-go
+  - software-properties-common
+  - python-pip

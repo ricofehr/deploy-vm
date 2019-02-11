@@ -1,0 +1,49 @@
+---
+
+- hosts: all
+  gather_facts: yes
+
+  #  vars_files:
+  # - vars/main.yml
+
+  roles:
+    - role: oh-my-zsh
+      tags: ['install']
+    - role: base
+      tags: ['install']
+    - role: vim
+      tags: ['devtool']
+    - role: ansible
+      become: yes
+    - role: devtools
+      tags: ['devtool', 'osx']
+    - role: git
+      become: yes
+      tags: ['devtool', 'git']
+    - role: gitconfig
+      tags: ['devtool', 'git']
+      #    - role: fonts
+      #tags: ['webtool']
+    - role: docker
+      become: yes
+      tags: ['docker', 'virtualization']
+
+  pre_tasks:
+    - name: Ensure gitmodules update
+      local_action: command git submodule update --init --recursive
+
+    - name: Stop package managers
+      shell: >
+        while fuser /var/lib/apt/lists/lock; do sleep 1; done;
+        while fuser /var/cache/apt/archives/lock; do sleep 1; done;
+        while fuser /var/lib/dpkg/lock; do sleep 1; done;
+        sed -i 's/0/1/' /etc/apt/apt.conf.d/10periodic;
+        sed -i 's/0/1/' /etc/apt/apt.conf.d/20auto-upgrades;
+        sed -i 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
+        systemctl disable apt-daily.service;
+        systemctl disable apt-daily.timer;
+        sleep 2;
+      become: true
+      args:
+        executable: /bin/bash
+

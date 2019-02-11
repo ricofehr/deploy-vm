@@ -1,0 +1,11 @@
+---
+
+- import_tasks: packages.yml
+
+- import_tasks: azcli.yml
+
+- import_tasks: powerlinefonts.yml
+
+- import_tasks: hashicorp.yml
+
+- import_tasks: endtools.yml

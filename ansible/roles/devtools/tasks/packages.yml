@@ -1,0 +1,6 @@
+---
+
+- name: Install packages
+  apt: name={{ item }} state=present update_cache=true force=yes
+  with_items: "{{ devtools_packages }}"
+  become: yes
