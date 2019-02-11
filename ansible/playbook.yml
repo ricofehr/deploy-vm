@@ -3,9 +3,6 @@
 - hosts: all
   gather_facts: yes
 
-  #  vars_files:
-  # - vars/main.yml
-
   roles:
     - role: oh-my-zsh
       tags: ['install']
@@ -22,16 +19,11 @@
       tags: ['devtool', 'git']
     - role: gitconfig
       tags: ['devtool', 'git']
-      #    - role: fonts
-      #tags: ['webtool']
     - role: docker
       become: yes
       tags: ['docker', 'virtualization']
 
   pre_tasks:
-    - name: Ensure gitmodules update
-      local_action: command git submodule update --init --recursive
-
     - name: Stop package managers
       shell: >
         while fuser /var/lib/apt/lists/lock; do sleep 1; done;
