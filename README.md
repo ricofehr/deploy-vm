@@ -1,6 +1,6 @@
 # deploy-vm
 
-Vm with useful packages and softwares for dploy applications: azcli, awscli, ansible, terraform
+Vm with useful packages and softwares for deploy applications: azcli, awscli, ansible, terraform
 
 ## Run
 
