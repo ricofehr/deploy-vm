@@ -1,4 +1,4 @@
 /tmp/
 *.retry
 .vault_pass.txt
-/target
+.vagrant
