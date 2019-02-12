@@ -9,3 +9,4 @@ devtools_packages:
   - golang-go
   - software-properties-common
   - python-pip
+  - dos2unix
