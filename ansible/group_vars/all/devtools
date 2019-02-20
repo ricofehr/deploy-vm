@@ -10,3 +10,4 @@ devtools_packages:
   - software-properties-common
   - python-pip
   - dos2unix
+  - easy-rsa
