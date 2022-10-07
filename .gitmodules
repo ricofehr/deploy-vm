@@ -1,9 +1,6 @@
 [submodule "ansible/roles/git"]
 	path = ansible/roles/git
 	url = https://github.com/geerlingguy/ansible-role-git
-[submodule "ansible/roles/docker"]
-	path = ansible/roles/docker
-	url = https://github.com/geerlingguy/ansible-role-docker
 [submodule "ansible/roles/oh-my-zsh"]
 	path = ansible/roles/oh-my-zsh
 	url = https://github.com/gantsign/ansible-role-oh-my-zsh
