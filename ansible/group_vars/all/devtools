@@ -8,6 +8,7 @@ devtools_packages:
   - nmap
   - golang-go
   - software-properties-common
-  - python-pip
+  - python3-pip
   - dos2unix
   - easy-rsa
+  - podman

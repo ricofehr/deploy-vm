@@ -5,10 +5,10 @@ Vagrant.configure("2") do |config|
     check_guest_additions = false
     functional_vboxsf = false
 
-    config.vm.box = "bento/ubuntu-18.04"
+    config.vm.box = "bento/ubuntu-22.04"
 
     config.vm.define :deployvm do |machine|
-      machine.vm.network :private_network, ip: "192.168.31.10"
+      machine.vm.network :private_network, ip: "192.168.56.10"
       machine.vm.hostname = "deployvm"
       machine.vm.provider "virtualbox" do |v|
           v.name = "deployvm"
