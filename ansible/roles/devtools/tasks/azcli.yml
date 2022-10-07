@@ -1,10 +1,24 @@
 ---
 
-- name: Install azure-cli
-  shell: |
-    AZ_REPO=$(lsb_release -cs)
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-    apt-key --keyring /etc/apt/trusted.gpg.d/Microsoft.gpg adv --keyserver packages.microsoft.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
-    apt-get update
-    apt-get install azure-cli
+- name: Add an apt signing key for Azure-cli
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
+
+- name: Adding apt repository for Azure-cli
+  apt_repository:
+    repo: deb https://packages.microsoft.com/repos/azure-cli/ jammy main
+    state: present
+    filename: azure-cli.list
+  become: yes
+
+- name: Install azure-cli binaries
+  apt: 
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages: 
+      - azure-cli
   become: yes

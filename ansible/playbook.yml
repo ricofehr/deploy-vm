@@ -34,6 +34,7 @@
         sed -i 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
         systemctl disable apt-daily.service;
         systemctl disable apt-daily.timer;
+        apt install -y git locales;
         sleep 2;
       become: true
       args:

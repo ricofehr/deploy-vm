@@ -1,0 +1,85 @@
+#!/bin/bash -e
+
+DEPLOYPREFIX=""
+SSHUSER="admin"
+PREFIX="bootsrap"
+OPSIP=""
+
+deployhelp() {
+  cat <<EOF
+Usage: $0 [options]
+-h           this is some help text.
+-p xxxx      resources prefix
+-i xxxx      operator ip to grant with network security group, mandatory
+-s xxxx      ssh user for azure vm, default is "admin"
+EOF
+
+exit 1
+}
+
+# Parse cmd options
+while (($# > 0)); do
+  case "$1" in
+    -i)
+      shift
+      OPSIP="$1"
+      shift
+      ;;
+    -p)
+      shift
+      PREFIX="$1"
+      shift
+      ;;
+    -s)
+      shift
+      SSHUSER="$1"
+      shift
+      ;;
+    -h)
+      shift
+      deployhelp
+      ;;
+    *)
+      shift
+      deployhelp
+      ;;
+  esac
+done
+
+if [[ -z "$OPSIP" ]]; then
+  echo "-i operator ip is missing"
+  deployhelp
+fi
+
+echo "ops_ips = [\"${OPSIP}\"]" > .tfvars
+echo "prefix = $PREFIX" >> .tfvars
+
+# Proceed to Azure Login
+if [[ -f .tfenv ]]; then
+  source .tfenv
+else
+  az login
+fi
+
+# Create project vm and associated azure services
+pushd tf/azure > /dev/null
+terraform init
+terraform plan -var-file=../../.tfvars -out terraform.plan
+terraform apply -auto-approve terraform.plan
+sleep 20
+
+# get private vm ip and azure public allocated
+PUBLIC_IP="$(terraform output public_ip)"
+popd > /dev/null
+
+pushd ansible > /dev/null
+
+# Prepare inventory
+echo "[deploy]" > tfinventory
+echo "deployvm ansible_host=${PUBLIC_IP} ansible_user=${SSHUSER} ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_python_interpreter=/usr/bin/python3" >> tfinventory
+
+ansible-playbook -i tfinventory playbook.yml
+
+popd > /dev/null
+
+echo "ssh ${SSHUSER}@${PUBLIC_IP}"

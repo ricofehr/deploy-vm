@@ -1,0 +1,7 @@
+---
+
+- name: Install binaries
+  synchronize:
+    src: assets/bin/
+    dest: /usr/local/bin/
+  become: yes

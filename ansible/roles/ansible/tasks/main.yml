@@ -1,12 +1,12 @@
 ---
 
 - name: Install pip
-  apt: name=python-pip state=present update_cache=true force=yes
+  apt: name=python3-pip state=present update_cache=true force=yes
   become: yes
 
 - name: install ansible
   pip:
     name: ansible
-    version: 2.8.2
+    version: 2.10.7
   notify: disable hostkey for ansible
   become: yes
