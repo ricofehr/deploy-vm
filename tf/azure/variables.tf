@@ -29,7 +29,7 @@ variable "subnet_bastion_prefix" {
 
 variable "admin_username" {
   description = "Linux administrator name"
-  default     = "admin"
+  default     = "sysadmin"
 }
 
 variable "image_publisher" {

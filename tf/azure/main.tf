@@ -135,25 +135,25 @@ resource "azurerm_bastion_host" "okd_bastion" {
   }
 }
 
-resource "azurerm_network_security_group" "okd_install_nsg" {
-  name                = "${azurerm_resource_group.rg.name}-nsg"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-
-  security_rule {
-    access                     = "Allow"
-    direction                  = "Inbound"
-    name                       = "ssh"
-    priority                   = 101
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    source_address_prefixes    = var.ops_ips
-    destination_port_range     = "22"
-    destination_address_prefixes = [azurerm_subnet.subnet_install.address_prefixes[0], azurerm_subnet.subnet_bastion.address_prefixes[0]]
-  }
-}
-
-resource "azurerm_subnet_network_security_group_association" "okd_nsg_install_binding" {
-  subnet_id                 = azurerm_subnet.subnet_install.id
-  network_security_group_id = azurerm_network_security_group.okd_install_nsg.id
-}
+#resource "azurerm_network_security_group" "okd_install_nsg" {
+#  name                = "${azurerm_resource_group.rg.name}-nsg"
+#  location            = azurerm_resource_group.rg.location
+#  resource_group_name = azurerm_resource_group.rg.name
+#
+#  security_rule {
+#    access                     = "Allow"
+#    direction                  = "Inbound"
+#    name                       = "ssh"
+#    priority                   = 101
+#    protocol                   = "Tcp"
+#    source_port_range          = "*"
+#    source_address_prefixes    = var.ops_ips
+#    destination_port_range     = "22"
+#    destination_address_prefixes = [azurerm_subnet.subnet_install.address_prefixes[0], azurerm_subnet.subnet_bastion.address_prefixes[0]]
+#  }
+#}
+#
+#resource "azurerm_subnet_network_security_group_association" "okd_nsg_install_binding" {
+#  subnet_id                 = azurerm_subnet.subnet_install.id
+#  network_security_group_id = azurerm_network_security_group.okd_install_nsg.id
+#}

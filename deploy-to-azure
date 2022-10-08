@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
-DEPLOYPREFIX=""
-SSHUSER="admin"
+SSHUSER="sysadmin"
 PREFIX="bootsrap"
 OPSIP=""
 
@@ -52,7 +51,8 @@ if [[ -z "$OPSIP" ]]; then
 fi
 
 echo "ops_ips = [\"${OPSIP}\"]" > .tfvars
-echo "prefix = $PREFIX" >> .tfvars
+echo "prefix = \"$PREFIX\"" >> .tfvars
+echo "admin_username = \"$SSHUSER\"" >> .tfvars
 
 # Proceed to Azure Login
 if [[ -f .tfenv ]]; then
@@ -65,7 +65,7 @@ fi
 pushd tf/azure > /dev/null
 terraform init
 terraform plan -var-file=../../.tfvars -out terraform.plan
-terraform apply -auto-approve terraform.plan
+terraform apply terraform.plan
 sleep 20
 
 # get private vm ip and azure public allocated

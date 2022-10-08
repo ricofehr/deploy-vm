@@ -4,9 +4,9 @@
   gather_facts: yes
 
   roles:
-    - role: oh-my-zsh
-      tags: ['install']
     - role: base
+      tags: ['install']
+    - role: oh-my-zsh
       tags: ['install']
     - role: vim
       tags: ['devtool']
@@ -19,9 +19,6 @@
       tags: ['devtool', 'git']
     - role: gitconfig
       tags: ['devtool', 'git']
-    - role: docker
-      become: yes
-      tags: ['docker', 'virtualization']
 
   pre_tasks:
     - name: Stop package managers
@@ -34,7 +31,6 @@
         sed -i 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
         systemctl disable apt-daily.service;
         systemctl disable apt-daily.timer;
-        apt install -y git locales;
         sleep 2;
       become: true
       args:
