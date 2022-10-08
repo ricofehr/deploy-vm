@@ -10,6 +10,8 @@
 
 - import_tasks: kubectl.yml
 
+- import_tasks: helm.yml
+
 - import_tasks: binaries.yml
 
 - import_tasks: endtools.yml
