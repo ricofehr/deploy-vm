@@ -12,5 +12,6 @@ devtools_packages:
   - dos2unix
   - easy-rsa
   - podman
+  - unzip
 
 ...
