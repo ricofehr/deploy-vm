@@ -1,18 +1,23 @@
 ---
 
-- name: check if newer install
-  stat:
-    path: ~/.ansible_devtools
-  register: new_install
+- name: Create folder
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/powerlinefonts"
+    state: directory
+    mode: '0750'
 
 - name: Deploy repos
-  git:
+  ansible.builtin.git:
     repo: https://github.com/powerline/fonts.git
-    dest: /tmp/powerlinefonts
-  when: not new_install.stat.exists
+    dest: "{{ ansible_env.HOME }}/powerlinefonts"
+    version: "e80e3eba9091dac0655a0a77472e10f53e754bb0"
 
 - name: Install fonts
-  shell: ./install.sh
+  ansible.builtin.shell: |
+    ./install.sh
+    touch "{{ ansible_env.HOME }}/.powerline_installed"
   args:
-    chdir: /tmp/powerlinefonts/
-  when: not new_install.stat.exists
+    creates: "{{ ansible_env.HOME }}/.powerline_installed"
+    chdir: "{{ ansible_env.HOME }}/powerlinefonts/"
+
+...

@@ -1,7 +1,8 @@
 ---
 
-- hosts: all
-  gather_facts: yes
+- name: Install a VM for Devops and deployment topics
+  hosts: all
+  gather_facts: true
 
   roles:
     - role: base
@@ -11,18 +12,19 @@
     - role: vim
       tags: ['devtool']
     - role: ansible
-      become: yes
+      tags: ['devtool']
     - role: devtools
       tags: ['devtool', 'osx']
     - role: git
-      become: yes
+      become: true
       tags: ['devtool', 'git']
     - role: gitconfig
       tags: ['devtool', 'git']
 
   pre_tasks:
     - name: Stop package managers
-      shell: >
+      become: true
+      ansible.builtin.shell: >
         while fuser /var/lib/apt/lists/lock; do sleep 1; done;
         while fuser /var/cache/apt/archives/lock; do sleep 1; done;
         while fuser /var/lib/dpkg/lock; do sleep 1; done;
@@ -32,7 +34,8 @@
         systemctl disable apt-daily.service;
         systemctl disable apt-daily.timer;
         sleep 2;
-      become: true
       args:
         executable: /bin/bash
+      changed_when: false
 
+...

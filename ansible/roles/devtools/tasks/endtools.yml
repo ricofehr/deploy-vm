@@ -1,5 +1,0 @@
----
-
-- file:
-    path: ~/.ansible_devtools
-    state: touch

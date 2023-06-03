@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  roles:
+    - role: base
+      vars:
+        base_in_container: true
+    - role: vim
+    - role: ansible
+    - role: devtools
+    - role: git
+      become: true
+    - role: gitconfig
+
+...

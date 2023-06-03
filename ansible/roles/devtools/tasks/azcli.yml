@@ -1,24 +1,23 @@
 ---
 
 - name: Add an apt signing key for Azure-cli
-  apt_key:
+  become: true
+  ansible.builtin.apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
     state: present
-  become: yes
 
 - name: Adding apt repository for Azure-cli
-  apt_repository:
-    repo: deb https://packages.microsoft.com/repos/azure-cli/ jammy main
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.microsoft.com/repos/azure-cli/ {{ ansible_distribution_release }} main
     state: present
     filename: azure-cli.list
-  become: yes
 
 - name: Install azure-cli binaries
-  apt: 
-    name: "{{ packages }}"
+  become: true
+  ansible.builtin.apt:
+    name: azure-cli
     state: present
-    update_cache: yes
-  vars:
-    packages: 
-      - azure-cli
-  become: yes
+    update_cache: true
+
+...

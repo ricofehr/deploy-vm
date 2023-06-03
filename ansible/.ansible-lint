@@ -1,0 +1,18 @@
+---
+
+profile: production
+
+exclude_paths:
+  - collections
+  - roles/base
+  - roles/git
+  - roles/gitconfig
+  - roles/oh-my-zsh
+  - roles/vim
+
+kinds:
+  - playbook: "**/playbook.yml"
+  - playbook: "**/molecules/**/converge.yml"
+  - vars: "**/group_vars/**"
+
+...
