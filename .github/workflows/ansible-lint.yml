@@ -19,6 +19,8 @@ jobs:
         shell: bash
         run: |
           cp ansible/.ansible-lint .
+          # hack to avoid molecule scan on github action (roles path issue)
+          sed -i "s/collections/molecule/" .ansible-lint
           cp ansible/requirements.yml .
 
       - name: Run ansible-lint
