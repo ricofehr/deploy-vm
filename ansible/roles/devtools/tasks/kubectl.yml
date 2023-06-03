@@ -1,24 +1,23 @@
 ---
 
 - name: Add an apt signing key for Kubernetes
-  apt_key:
+  become: true
+  ansible.builtin.apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
-  become: yes
 
 - name: Adding apt repository for Kubernetes
-  apt_repository:
+  become: true
+  ansible.builtin.apt_repository:
     repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
     filename: kubernetes.list
-  become: yes
 
 - name: Install Kubernetes binaries
-  apt: 
-    name: "{{ packages }}"
+  become: true
+  ansible.builtin.apt:
+    name: kubectl
     state: present
-    update_cache: yes
-  vars:
-    packages: 
-      - kubectl
-  become: yes
+    update_cache: true
+
+...

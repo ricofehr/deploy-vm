@@ -1,24 +1,23 @@
 ---
 
 - name: Add an apt signing key for Helm
-  apt_key:
+  become: true
+  ansible.builtin.apt_key:
     url: https://baltocdn.com/helm/signing.asc
     state: present
-  become: yes
 
 - name: Adding apt repository for Helm
-  apt_repository:
-    repo: deb [arch=amd64] https://baltocdn.com/helm/stable/debian/ all main
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://baltocdn.com/helm/stable/debian/ all main
     state: present
     filename: helm.list
-  become: yes
 
 - name: Install helm binaries
-  apt: 
-    name: "{{ packages }}"
+  become: true
+  ansible.builtin.apt:
+    name: helm
     state: present
-    update_cache: yes
-  vars:
-    packages: 
-      - helm
-  become: yes
+    update_cache: true
+
+...

@@ -1,17 +1,24 @@
 ---
 
-- import_tasks: packages.yml
+- name: Install some useful packages
+  ansible.builtin.import_tasks: packages.yml
 
-- import_tasks: azcli.yml
+- name: Install az cli
+  ansible.builtin.import_tasks: azcli.yml
 
-- import_tasks: powerlinefonts.yml
+- name: Install powerline fonts
+  ansible.builtin.import_tasks: powerlinefonts.yml
 
-- import_tasks: hashicorp.yml
+- name: Install terraform
+  ansible.builtin.import_tasks: hashicorp.yml
 
-- import_tasks: kubectl.yml
+- name: Install kubectl
+  ansible.builtin.import_tasks: kubectl.yml
 
-- import_tasks: helm.yml
+- name: Install helm
+  ansible.builtin.import_tasks: helm.yml
 
-- import_tasks: binaries.yml
+- name: Install other project binaries
+  ansible.builtin.import_tasks: binaries.yml
 
-- import_tasks: endtools.yml
+...

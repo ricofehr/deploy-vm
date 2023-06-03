@@ -33,3 +33,4 @@ Run with arguments (replace OWN_IP, PREFIX_NAME and SSH_USERNAME with your value
 ```
 $ ./deploy-to-azure -i $OWN_IP -p $PREFIX_NAME -s $SSH_USERNAME
 ```
+

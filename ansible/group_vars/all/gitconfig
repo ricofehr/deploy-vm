@@ -1,10 +1,19 @@
 ---
 
 gitconfigs:
-  - user.email {{ ansible_user }}@example.com
-  - user.name {{ ansible_user }}
-  - pull.rebase true
-  - core.ignorecase false
-  - help.autocorrect 1
-  - core.autocrlf input
-  - core.pager cat
+  - name: user.email
+    value: "{{ ansible_user }}@example.com"
+  - name: user.name
+    value: "{{ ansible_user }}"
+  - name: pull.rebase
+    value: "true"
+  - name: core.ignorecase
+    value: "false"
+  - name: help.autocorrect
+    value: "1"
+  - name: core.autocrlf
+    value: "input"
+  - name: core.pager
+    value: "cat"
+
+...
