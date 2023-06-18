@@ -16,7 +16,6 @@ Deploy to azure
 - a dedicated vnet
 - 2 subnets : one for the deploy VM and one for the bastion VM
 - 1 Azure Virtual Machine
-- 1 Azure Bastion
 - Security group to allow only inbound SSH for OWN_IP
 
 (Optional) Prepare a .tfenv file with service principal data
